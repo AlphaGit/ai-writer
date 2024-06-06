@@ -1,0 +1,9 @@
+[package]
+name = "ai-writer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dotenvy = "0.15.7"
+openai = "1.0.0-alpha.14"
+tokio = "1.38.0"
