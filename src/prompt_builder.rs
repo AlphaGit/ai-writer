@@ -12,7 +12,7 @@ The article needs to touch the following points. These are not necesarilly title
 {points}
 </POINTS>
 
-Output only a non-numbered list with the section titles. No explanations."
+The output will be a non-numbered list with the section titles. No explanations. Include subitems with two spaces of indentation that explains contents that should be included in the section. Some sections might require a lot of explanations, so they can have more points. Some sections might require little to no detail at all, so they will have less points."
     )
 }
 
