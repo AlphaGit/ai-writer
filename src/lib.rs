@@ -1,11 +1,11 @@
 extern crate log;
 
+pub mod prompt_builder;
+
 use dotenvy::dotenv;
 use log::{debug, error, info, warn};
 use openai::{chat, set_key};
 use std::env;
-
-const SYSTEM_PROMPT: &str = "You are a writer for a developer that works on software, open source, architecture and productivity. Your job is to write a blog post about a subject and develop it to completion. All output should be markdown based.";
 
 pub async fn get_completion(prompt: &str) -> String {
     dotenv().unwrap();
@@ -20,7 +20,7 @@ pub async fn get_completion(prompt: &str) -> String {
                 role: chat::ChatCompletionMessageRole::System,
                 name: None,
                 function_call: None,
-                content: Some(SYSTEM_PROMPT.to_string()),
+                content: Some(prompt_builder::SYSTEM_PROMPT.to_string()),
             },
             chat::ChatCompletionMessage {
                 role: chat::ChatCompletionMessageRole::User,
