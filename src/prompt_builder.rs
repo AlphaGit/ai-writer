@@ -1,4 +1,4 @@
-pub fn get_planning_prompt(idea: &str, points: &str) -> String {
+pub fn get_planning_prompt(idea: &str, points: &str, indications: &str) -> String {
     format!(
         "You need to plan what sections an article will have. The idea behind the article is:
 
@@ -11,6 +11,12 @@ The article needs to touch the following points. These are not necesarilly title
 <POINTS>
 {points}
 </POINTS>
+
+Here are some further indications that you should consider when planning the article:
+
+<INDICATIONS>
+{indications}
+</INDICATIONS>
 
 The output will be a non-numbered list with the section titles. No explanations. Include subitems with two spaces of indentation that explains contents that should be included in the section. Some sections might require a lot of explanations, so they can have more points. Some sections might require little to no detail at all, so they will have less points."
     )

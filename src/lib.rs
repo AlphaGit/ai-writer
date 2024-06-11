@@ -3,13 +3,13 @@ extern crate log;
 pub mod prompt_builder;
 
 use dotenvy::dotenv;
-use log::{debug, error, info, warn};
+use log::debug;
 use openai::{chat, set_key};
 use std::env;
 
-pub async fn get_completion(prompt: &str) -> String {
+pub async fn get_completion(prompt: &str) -> Option<String> {
     dotenv().unwrap();
-    set_key(env::var("OPENAI_API_KEY").unwrap());
+    set_key(env::var("OPENAI_API_KEY").ok()?);
 
     debug!("Prompt:\n{}", prompt);
 
@@ -31,12 +31,12 @@ pub async fn get_completion(prompt: &str) -> String {
         ])
         .create()
         .await
-        .unwrap();
+        .ok()?;
 
-    let first_choice = completion.choices.first().unwrap();
-    let response = first_choice.message.content.as_ref().unwrap();
+    let first_choice = completion.choices.first()?;
+    let response = first_choice.message.content.as_ref()?;
 
     debug!("Completion Response:\n{}", response);
 
-    response.to_string()
+    Some(response.to_string())
 }
