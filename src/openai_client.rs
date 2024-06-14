@@ -1,26 +1,24 @@
-use crate::prompt_builder;
-use dotenvy::dotenv;
+use crate::{config::{self, Config}, prompt_builder};
 use log::debug;
-use openai::{chat, set_key};
-use std::env;
+use openai;
 
 pub async fn get_completion(prompt: &str) -> Option<String> {
-    dotenv().unwrap();
-    set_key(env::var("OPENAI_API_KEY").ok()?);
+    let openai_api_key = config::read_config(Config::OpenAiApiKey);
+    openai::set_key(openai_api_key?);
 
     debug!("Prompt:\n{}", prompt);
 
-    let completion = chat::ChatCompletionBuilder::default()
+    let completion = openai::chat::ChatCompletionBuilder::default()
         .model("gpt-4o")
         .messages(vec![
-            chat::ChatCompletionMessage {
-                role: chat::ChatCompletionMessageRole::System,
+            openai::chat::ChatCompletionMessage {
+                role: openai::chat::ChatCompletionMessageRole::System,
                 name: None,
                 function_call: None,
                 content: Some(prompt_builder::SYSTEM_PROMPT.to_string()),
             },
-            chat::ChatCompletionMessage {
-                role: chat::ChatCompletionMessageRole::User,
+            openai::chat::ChatCompletionMessage {
+                role: openai::chat::ChatCompletionMessageRole::User,
                 name: None,
                 function_call: None,
                 content: Some(prompt.to_string()),

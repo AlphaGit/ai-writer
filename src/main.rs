@@ -1,4 +1,6 @@
-use ai_writer::{openai_client, output_writer, prompt_builder};
+use std::process::exit;
+
+use ai_writer::{openai_client, output_writer, prompt_builder, editor_input};
 use log::{debug, info};
 use log4rs;
 
@@ -6,6 +8,11 @@ use log4rs;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     log4rs::init_file("log4rs.yaml", Default::default()).unwrap();
     info!("Starting...");
+
+    if let Some(input) = Some(editor_input::get_input("Press Enter to start planning...".to_string())) {
+        info!("Input: {:?}", input);
+        exit(0);
+    }
 
     // TODO These should be requested from the user
     // ---------------- BEGIN ---------------------
