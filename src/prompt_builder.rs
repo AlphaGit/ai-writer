@@ -1,4 +1,4 @@
-pub fn get_planning_prompt(idea: &str, points: &str, indications: &str) -> String {
+pub fn get_planning_prompt(idea: String, points: String, indications: String) -> String {
     format!(
         "You need to plan what sections an article will have. The idea behind the article is:
 
@@ -25,11 +25,11 @@ The output will be a non-numbered list with the section titles. No explanations.
 pub const SYSTEM_PROMPT: &str = "You are a writer for a developer and writer about open source, architecture and productivity. Your job is to write a blog post about a subject and develop it to completion. All output should be markdown based. Be informal but avoid vulgarity.";
 
 pub fn get_content_prompt(
-    idea: &str,
-    points: &str,
-    indications: &str,
-    audience: &str,
-    voice: &str,
+    idea: String,
+    points: String,
+    indications: String,
+    audience: String,
+    voice: String,
     sections: String,
 ) -> String {
     format!(
